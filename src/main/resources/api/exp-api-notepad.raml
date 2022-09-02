@@ -1,0 +1,43 @@
+#%RAML 1.0
+title: exp-api-notepad
+mediaType:
+  - application/json
+version: v1
+protocols:
+  - HTTP
+  - HTTPS
+types:
+  Note:
+    properties:
+      noteTitle:
+        example: Example
+        type: string
+      noteBody:
+        properties:
+          noteText:
+            example: Example
+            type: string
+          noteAttachments:
+            items:
+              fileTypes:
+                - "*/*"
+
+securitySchemes:
+  SecurityScheme:
+    type: Basic Authentication
+    description: Required the username and password for authentication
+    describedBy: {}
+/notes:
+  post:
+    body:
+      items:
+        type: Note
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              value: {
+                "message": "Note added successfully",
+                "noteId": "020920221102PM"
+              }
